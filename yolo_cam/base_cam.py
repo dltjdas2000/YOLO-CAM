@@ -74,7 +74,7 @@ class BaseCAM:
 #             input_tensor = torch.autograd.Variable(input_tensor,
 #                                                    requires_grad=True)
 
-        outputs = self.activations_and_grads(input_tensor)
+        outputs = self.activations_and_grads(input_tensor) # ----------------------------> result = model(img)
         self.outputs.append(outputs[0])
         if targets is None:
 #             target_categories = np.argmax(outputs[0].cpu().data.numpy(), axis=-1)
@@ -91,6 +91,11 @@ class BaseCAM:
                         target_categories = [0]
             elif self.task == 'seg':
                 target_categories = [category['name'] for category in outputs[0].summary()]
+
+
+            elif self.task == 'obb': # --------------------------------------------------------> boxes: None, names: {0: 'bus', 1: 'truck'}
+                target_categories = outputs[0].obb.cls
+
             else:
                 print('Invalid Task Entered')
             targets = [ClassifierOutputTarget(
