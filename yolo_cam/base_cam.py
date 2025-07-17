@@ -48,7 +48,7 @@ class BaseCAM:
                       targets: List[torch.nn.Module],
                       activations: torch.Tensor,
                       grads: torch.Tensor,
-                      eigen_smooth: bool = False) -> np.ndarray:
+                      eigen_smooth: bool = True) -> np.ndarray: # ------------------------> for get_2d_projection
 
         weights = self.get_cam_weights(input_tensor,
                                        target_layer,
