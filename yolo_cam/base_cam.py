@@ -48,7 +48,7 @@ class BaseCAM:
                       targets: List[torch.nn.Module],
                       activations: torch.Tensor,
                       grads: torch.Tensor,
-                      eigen_smooth: bool = True) -> np.ndarray: # ------------------------> for get_2d_projection
+                      eigen_smooth: bool = False) -> np.ndarray: 
 
         weights = self.get_cam_weights(input_tensor,
                                        target_layer,
@@ -93,8 +93,8 @@ class BaseCAM:
                 target_categories = [category['name'] for category in outputs[0].summary()]
 
 
-            elif self.task == 'obb': # --------------------------------------------------------> boxes: None, names: {0: 'bus', 1: 'truck'}
-                target_categories = outputs[0].obb.cls
+            # elif self.task == 'obb': # --------------------------------------------------------> boxes: None, names: {0: 'bus', 1: 'truck'}
+            #     target_categories = outputs[0].obb.cls
 
             else:
                 print('Invalid Task Entered')
